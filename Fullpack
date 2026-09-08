@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meta Tag Generator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      background-color: #f4f7f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .tool-card {
+      max-width: 700px;
+      margin: 20px auto;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      border: 1px solid #e1e8ed;
+    }
+    .tool-header {
+      background-color: #1565c0;
+      color: #ffffff;
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .tool-header h1 {
+      margin: 0 0 6px 0;
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .tool-header p {
+      margin: 0;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+    .tool-body {
+      padding: 24px;
+    }
+    .step-group {
+      margin-bottom: 16px;
+    }
+    .step-label {
+      color: #1565c0;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 6px;
+      display: block;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #bce0fd;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+      background-color: #fafcfe;
+      transition: border-color 0.2s;
+    }
+    input[type="text"]:focus, textarea:focus {
+      border-color: #1565c0;
+      background-color: #ffffff;
+    }
+    textarea {
+      height: 80px;
+      resize: vertical;
+    }
+    .output-area {
+      height: 140px;
+      font-family: monospace;
+      font-size: 13px;
+      background-color: #1e1e1e;
+      color: #00ff66;
+      border: none;
+    }
+    .btn-container {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      margin-bottom: 20px;
+    }
+    .action-btn {
+      flex: 1;
+      background-color: #1565c0;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .action-btn:hover {
+      background-color: #0d47a1;
+    }
+    .clear-btn {
+      background-color: #e0e0e0;
+      color: #333;
+    }
+    .clear-btn:hover {
+      background-color: #d6d6d6;
+    }
+  </style>
+</head>
+<body>
+
+<div class="tool-card">
+  <div class="tool-header">
+    <h1>Meta Tag Generator</h1>
+    <p>Generate SEO Meta Tags for Google & Social Media</p>
+  </div>
+
+  <div class="tool-body">
+    
+    <div class="step-group">
+      <label class="step-label">1. Site Title</label>
+      <input type="text" id="siteTitle" placeholder="My Awesome Website">
+    </div>
+
+    <div class="step-group">
+      <label class="step-label">2. Site Description</label>
+      <textarea id="siteDesc" placeholder="Brief description of your website..."></textarea>
+    </div>
+
+    <div class="step-group">
+      <label class="step-label">3. Keywords (Separated by commas)</label>
+      <input type="text" id="siteKeywords" placeholder="blog, web tools, seo, converter">
+    </div>
+
+    <div class="step-group">
+      <label class="step-label">4. Author Name</label>
+      <input type="text" id="siteAuthor" placeholder="John Doe">
+    </div>
+
+    <div class="btn-container">
+      <button class="action-btn" onclick="generateMetaTags()">Generate Code</button>
+      <button class="action-btn clear-btn" onclick="clearAll()">Clear</button>
+    </div>
+
+    <div class="step-group" id="outputSection" style="display:none;">
+      <label class="step-label">Generated Meta Tags Code</label>
+      <textarea id="generatedCode" class="output-area" readonly></textarea>
+      <button class="action-btn" style="margin-top: 10px;" onclick="copyCode()">Copy Meta Tags</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function generateMetaTags() {
+    const title = document.getElementById('siteTitle').value.trim();
+    const desc = document.getElementById('siteDesc').value.trim();
+    const keywords = document.getElementById('siteKeywords').value.trim();
+    const author = document.getElementById('siteAuthor').value.trim();
+
+    if(!title && !desc) {
+      alert('Please enter Title or Description');
+      return;
+    }
+
+    let code = `<!-- Primary Meta Tags -->\n`;
+    if(title) code += `<title>${title}</title>\n<meta name="title" content="${title}">\n`;
+    if(desc) code += `<meta name="description" content="${desc}">\n`;
+    if(keywords) code += `<meta name="keywords" content="${keywords}">\n`;
+    if(author) code += `<meta name="author" content="${author}">\n`;
+    code += `<meta name="viewport" content="width=device-width, initial-scale=1.0">\n\n`;
+
+    code += `<!-- Open Graph / Facebook Meta Tags -->\n`;
+    code += `<meta property="og:type" content="website">\n`;
+    if(title) code += `<meta property="og:title" content="${title}">\n`;
+    if(desc) code += `<meta property="og:description" content="${desc}">\n\n`;
+
+    code += `<!-- Twitter Meta Tags -->\n`;
+    code += `<meta property="twitter:card" content="summary_large_image">\n`;
+    if(title) code += `<meta property="twitter:title" content="${title}">\n`;
+    if(desc) code += `<meta property="twitter:description" content="${desc}">\n`;
+
+    document.getElementById('generatedCode').value = code;
+    document.getElementById('outputSection').style.display = 'block';
+  }
+
+  function copyCode() {
+    const codeArea = document.getElementById('generatedCode');
+    codeArea.select();
+    document.execCommand('copy');
+    alert('Meta Tags copied to clipboard!');
+  }
+
+  function clearAll() {
+    document.getElementById('siteTitle').value = '';
+    document.getElementById('siteDesc').value = '';
+    document.getElementById('siteKeywords').value = '';
+    document.getElementById('siteAuthor').value = '';
+    document.getElementById('generatedCode').value = '';
+    document.getElementById('outputSection').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
