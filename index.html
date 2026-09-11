@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meta Tag Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="tool-card">
+  <div class="tool-header">
+    <h1>Meta Tag Generator</h1>
+    <p>Generate SEO Meta Tags for Google & Social Media</p>
+  </div>
+
+  <div class="tool-body">
+    
+    <div class="step-group">
+      <label class="step-label">1. Site Title</label>
+      <input type="text" id="siteTitle" placeholder="My Awesome Website">
+    </div>
+
+    <div class="step-group">
+      <label class="step-label">2. Site Description</label>
+      <textarea id="siteDesc" placeholder="Brief description of your website..."></textarea>
+    </div>
+
+    <div class="step-group">
+      <label class="step-label">3. Keywords (Separated by commas)</label>
+      <input type="text" id="siteKeywords" placeholder="blog, web tools, seo, converter">
+    </div>
+
+    <div class="step-group">
+      <label class="step-label">4. Author Name</label>
+      <input type="text" id="siteAuthor" placeholder="John Doe">
+    </div>
+
+    <div class="btn-container">
+      <button class="action-btn" onclick="generateMetaTags()">Generate Code</button>
+      <button class="action-btn clear-btn" onclick="clearAll()">Clear</button>
+    </div>
+
+    <div class="step-group" id="outputSection" style="display:none;">
+      <label class="step-label">Generated Meta Tags Code</label>
+      <textarea id="generatedCode" class="output-area" readonly></textarea>
+      <button class="action-btn" style="margin-top: 10px;" onclick="copyCode()">Copy Meta Tags</button>
+    </div>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
